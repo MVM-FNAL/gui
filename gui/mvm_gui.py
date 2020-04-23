@@ -60,7 +60,7 @@ if __name__ == "__main__":
     watchdog.start(config["wdinterval"] * 1000)
 
     window = MainWindow(config, esp32)
-    window.show()
+    window.showFullScreen()
     app.exec_()
     esp32.set("wdenable", 0)
 
