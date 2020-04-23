@@ -8,6 +8,7 @@ from . import ESP32Alarm, ESP32Warning
 
 __all__ = ("ESP32Serial", "ESP32Exception")
 
+set_exclude = ['pcv_trigger_enable', 'pcv_trigger', 'backup_min_time'] # These params are not present in v3
 
 class ESP32Exception(Exception):
     """
@@ -109,7 +110,10 @@ class ESP32Serial:
 
         returns: an "OK" string in case of success.
         """
-
+        
+        if name in set_exclude:
+            print('\033[91m REQUESTED TO EXCLUDE PARAM WITH NAME', name, '\033[0m')
+            return
         print("ESP32Serial-DEBUG: set %s %s" % (name, value))
 
         with self.lock:
